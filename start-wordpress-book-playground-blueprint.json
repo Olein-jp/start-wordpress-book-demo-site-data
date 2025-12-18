@@ -1,0 +1,62 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/wp-admin/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "6.9"
+  },
+  "features": {
+    "networking": true
+  },
+  "phpExtensionBundles": [
+    "kitchen-sink"
+  ],
+  "siteOptions": {
+    "blogname": "空想会社ウェブティックタック"
+  },
+  "steps": [
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "ja"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "wp-multibyte-patch"
+      }
+    },
+    {
+      "step": "importWxr",
+      "file": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/Olein-jp/start-wordpress-book-demo-site-data/main/start-wordpress-book-starter-contents.xml"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; update_option('date_format', 'Y年n月j日'); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; update_option('timezone_string', 'Asia/Tokyo'); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; update_option('time_format', 'H:i'); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; update_option('blogdescription', 'お客様とテクノロジーとの架け橋に'); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_delete_post(1, true); wp_delete_post(2, true); wp_delete_post(3, true); ?>"
+    }
+  ]
+}
